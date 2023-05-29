@@ -92,9 +92,9 @@ const ToDoApp: React.FC = () => {
                 }
             </div>
             {
-                todoList != null && todoList.length && 
+                todoList != null && todoList.length ? 
                 <Footer clearCompleted={clearCompleted} setActiveState={setActiveState} activeState={activeState}
-                    toDoCount={todoList.filter(toDo => !toDo.completed).length}></Footer> 
+                    toDoCount={todoList.filter(toDo => !toDo.completed).length}></Footer> : null
             }
         </div>
     )
