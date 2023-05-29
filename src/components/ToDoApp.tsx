@@ -50,10 +50,15 @@ const ToDoApp: React.FC = () => {
 
     function clearCompleted() {
         let ids: Array<number> = todoList.filter(todo => todo.completed).map((todo) => todo.id);
+        if(ids == null || ids.length === 0 ) {
+            alert("Please select a todo to delete!")
+            return;
+        }
         axios.delete(SERVER_URL + "deleteByIds/" + ids.toString())
             .then((response) => {
                 if (response.data) {
                     setTodoList((toDos) => todoList.filter(todo => !todo.completed));
+                    setCheckAll(false);
                 }
             }).catch(alert)
     }
@@ -64,6 +69,8 @@ const ToDoApp: React.FC = () => {
                 if (response.data) {
                     todoList.splice(index, 1);
                     setTodoList(() => [...todoList]);
+                    const checkAll = todoList != null && todoList.length > 0 ?  todoList.every(toDo => toDo.completed): false;
+                    setCheckAll(checkAll);
                 }
             }).catch(alert)
     }
