@@ -38,11 +38,11 @@ const ToDoApp: React.FC = () => {
     function handleCheckAll(event: React.ChangeEvent<HTMLInputElement>) {
         setTodoList((toDos) => [...todoList]);
         todoList.forEach((todo) => todo.completed = event.target.checked)
-        setCheckAll(event.target.checked)
+        updateToDo(todoList)
     }
 
-    function updateToDo(toDo: ToDoTO) {
-        axios.patch(SERVER_URL + "update", toDo).then((response)=>{
+    function updateToDo(toDos: Array<ToDoTO>) {
+        axios.patch(SERVER_URL + "update", toDos).then((response)=>{
             setCheckAll(todoList.every(toDo => toDo.completed));
             setTodoList(todos => [...todoList])
         }).catch(alert);
